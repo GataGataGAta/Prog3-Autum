@@ -46,25 +46,25 @@ int main(void)
         // printf("\n");
         //確認用に配列bを出力しています
 
-        int found = 0;
+        int find = 0;
         for (int i = 0; i <= n - k; i++)
         {
-            int match = 1;
+            int pair = 1;
             for (int j = 0; j < k; j++)
             {
                 if (b[i + j] != a[j])
                 {
-                    match = 0;
+                    pair = 0;
                     break;
                 }
             }
-            if (match == 1)
+            if (pair == 1)
             {
-                found = 1;
+                find = 1;
                 break;
             }
         }
-        printf("%d\n", found);
+        printf("%d\n", find);
     }
     return 0;
 }

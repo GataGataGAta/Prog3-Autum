@@ -5,15 +5,9 @@
 
 int main(void)
 {
-    char filename[] = "out.txt";
-
-    FILE *fp = fopen(filename, "w");
-    if(fp == NULL)
-    {
-        printf("ERROR");
-        exit(EXIT_FAILURE);
-    }
     int i, j, k;
+    j = 0;
+    k = 0;
     for(i = 0; i < N; i++)
     {
         j = i % 10;
@@ -22,12 +16,10 @@ int main(void)
         {
             if(i != 0)
             {
-            fprintf(fp, "%d\n", i);
+            printf("%d\n", i);
             }
         }
-        //printf("%d\n", k);
     }
-    fclose(fp);
-    return EXIT_SUCCESS;
+    return 0;
 
 }

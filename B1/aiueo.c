@@ -11,7 +11,7 @@ int main(void)
 
    for (;;) {
 
-     fprintf(stderr, "英単語を入力して下さい (END で終了): ");
+     fprintf(stderr, "英単語を入力して下さい (qq で終了): ");
      scanf(W_FMT, w);
      if (strcmp(w,"qq")==0) { break; }  /* 終了判定 */
 
