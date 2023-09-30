@@ -44,7 +44,8 @@ gatahayato@Gatas-MacBook-Pro B1 % ./a.out
 
 [課題 1.2]
 
-課題(1-1)で作成したプログラム san.c を実行したときの出力を, テキストファイル out.txt に保存した。また、下記のようなsan-exp.txtを作成し、out.txtと内容が一致するかを確認した。
+課題(1-1)で作成したプログラム san.c を実行したときの出力を, テキストファイル out.txt に保存した。
+また、下記のようなsan-exp.txtを作成し、out.txtと内容が一致するかを確認した。
 san-exp.txt
 3
 6
