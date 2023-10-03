@@ -3,21 +3,13 @@
 
 int main(void)
 {
-    char filename[] = "out.txt";
-
-    FILE *fp = fopen(filename, "w");
-    if(fp == NULL)
-    {
-        printf("ERROR");
-        exit(EXIT_FAILURE);
-    }
     int n;
-    printf("1から99までの整数を入力してください>>>");
+    fprintf(stderr, "1から99までの整数を入力してください>>>");
     scanf("%d", &n);
 
     if(n < 1 || n > 99)
     {
-        printf("1から99までの整数を入力してください>>>");
+        fprintf(stderr, "1から99までの整数を入力してください>>>");
     }
 
     for(int i = 0; i < n; i++)
@@ -28,12 +20,12 @@ int main(void)
         {
             if(i != 0)
             {
-            fprintf(fp, "%d\n", i);
+            printf("%d\n", i);
             }
         }
     }
     
-    fclose(fp);
-    return EXIT_SUCCESS;
+    
+    return 0;
 
 }

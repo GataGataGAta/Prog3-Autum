@@ -1,0 +1,1 @@
+void qeq(double a, double b, double c);

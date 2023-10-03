@@ -30,12 +30,6 @@ int main(void)
             c[n[i]]++;
         }
 
-        // for(i = 0; i < cards; i++)
-        // {
-        //     printf("%d %d\n", i, c[i]);
-        // }
-        // 確認用に出力
-
         int fc = 0; // 4カードを判定する変数
         int fh = 0; // フルハウスを判定する変数
         int tc = 0; // 3カードを判定する変数

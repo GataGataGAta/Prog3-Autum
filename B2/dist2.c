@@ -10,7 +10,7 @@ double dist(double x1, double y1, double x2, double y2)
 }
 
 int main(void)
-{   
+{
     double x1, y1, x2, y2, result;
     for(int i = 0; i < Count; i++)
     {
