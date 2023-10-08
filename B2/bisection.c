@@ -25,17 +25,17 @@ double bisection(double x1, double x2, double a, double b, double c, double eps)
 
         if (fabs(f1) < eps)
         {
-            fprintf(stderr, "%f\n", x1);
+            fprintf(stderr, "%0.8f\n", x1);
             return x1;
         }
         else if (fabs(f2) < eps)
         {
-            fprintf(stderr, "%f\n", x2);
+            fprintf(stderr, "%0.8f\n", x2);
             return x2;
         }
         else if (fabs(x1 - x2) < eps)
         {
-            fprintf(stderr, "%f\n", x1);
+            fprintf(stderr, "%0.8f\n", x1);
             return x1;
         }
 

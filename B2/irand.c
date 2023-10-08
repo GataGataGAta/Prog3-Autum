@@ -18,9 +18,10 @@ int main(void)
     for (i = 0; i < n; i++) 
     {
         ran = irand(a, b);
-        printf("%d\n", ran);
+        printf("%d ", ran);
         c[ran]++;
     }
+    printf("\n");
     for(i = a; i <= b; i++)
     {
         printf("%dが出現した回数:%d\n", i, c[i]);

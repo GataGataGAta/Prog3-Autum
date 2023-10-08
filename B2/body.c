@@ -38,9 +38,9 @@ int main(void)
 
 void body_index_print(body_index_t x)
 {
-    printf("名前: %s\n", x.name);
-    printf("体重: %0.1f\n", x.weight);
-    printf("身長: %0.1f\n", x.stature);
+    printf("name: %s\n", x.name);
+    printf("stature: %0.1fcm\n", x.stature);
+    printf("weight: %0.1fkg\n", x.weight);
     printf("BMI: %0.1f\n", x.bmi);
 }
 
