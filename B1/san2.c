@@ -12,7 +12,7 @@ int main(void)
         fprintf(stderr, "1から99までの整数を入力してください>>>");
     }
 
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i <= n; i++)
     {
         int j = i % 10;
         int k = i / 10;
