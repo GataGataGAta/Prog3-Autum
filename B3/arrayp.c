@@ -7,6 +7,7 @@ int main(void)
     int k;
     k = sizeof x / sizeof x[0];
     int *p;
+    printf("k = %d\n", k);
 
     for(int i = 0; i < k; i++)
     {
@@ -19,18 +20,18 @@ int main(void)
     printf("\n");
     for(int j = 0; j < k; j++)
     {
-        printf("x+%dのアドレスは%pです。\n", j, &x+j);
+        printf("x + %dのアドレスは%pです。\n", j, x+j);
     }
 
     printf("\n");
     for(int n = 0; n < k; n++)
     {
-        printf("x[%d]の値は%dです。\n", n, x[n]);
+        printf("x + %dの値は%dです。\n", n, x[n]);
     }
 
     p = &x[2];
     printf("\n");
-    printf("p + 2の値は%pです。\n", &p + 2);
+    printf("p + 2の値は%pです。\n", (p + 2));
     printf("p[2]の値は%dです。\n", p[2]);
 
     return 0;
