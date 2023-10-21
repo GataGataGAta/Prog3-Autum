@@ -1,0 +1,411 @@
+科目名: プログラミング実習III
+課題: B1
+番号: 37022503
+氏名: 山形 隼士
+作成: 2023年10月21日
+
+----------------------------------------
+
+[課題 4.1]
+
+以下の指示に従い, n×n 行列に対する演算を行うための関数群を matrix.c に作成した.
+
+(1) matrix_print
+void matrix_print(int n, double A[N][N]) は, 配列 A[N][N] に格納された n×n 行列のデータを標準出力に出力する関数である.
+この関数の中の printf の書式を適切に設定し, 下記と同様の出力が得られるようにした
+
+実行結果は以下の通りである。
+A
+ 0.00000 1.00000 2.00000
+ 1.00000 2.00000 3.00000
+ 2.00000 3.00000 4.00000
+
+表示する部分を%0.5fとすることでうまく表示することができた。
+特に苦戦することはなかった。
+
+(2) matrix_scan
+標準入力から n×n 行列のデータを配列 A[N][N] に読み込む関数 void matrix_scan(int n, double A[N][N]) を作成し、matrix.c に追加した
+
+実行結果は以下の通りである。
+n = 3
+1
+2
+3
+1
+2
+3
+1
+2
+3
+A
+ 1.00000 2.00000 3.00000
+ 1.00000 2.00000 3.00000
+ 1.00000 2.00000 3.00000
+
+二重ループを使って、その中でsanfを使うことで配列の要素を入力することができた。
+この課題も難しくはなかった。
+
+(3) matrix_sum
+配列 A と B に格納された n×n 行列の和を求め, 結果を配列 Y に格納する関数 void matrix_sum(int n, double A[N][N], double B[N][N], double Y[N][N]) 
+を作成し, matrix.c に追加した.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B4 % gcc -Wall matrix.c matrix3test.c
+gatahayato@Gatas-MacBook-Pro B4 % ./a.out < in.txt > out.txt
+n = A
+B
+gatahayato@Gatas-MacBook-Pro B4 % diff -w out.txt exp1.txt
+
+out.txtの内容は以下の通りである。
+A
+ 3.25000 9.42000 7.34000 0.12000 5.98000
+ 5.73000 7.11000 8.93000 6.32000 7.12000
+ 8.23000 5.44000 3.12000 0.29000 4.23000
+ 5.42000 6.22000 2.93000 4.32000 9.22000
+ 7.13000 1.36000 9.34000 4.21000 4.31000
+B
+ 1.23000 0.34000 9.24000 6.24000 8.88000
+ 2.59000 0.13000 3.19000 7.36000 6.35000
+ 7.12000 9.44000 3.19000 0.25000 8.41000
+ 3.42000 9.43000 4.23000 7.99000 8.43000
+ 5.24000 0.23000 2.44000 9.34000 6.87000
+Y
+ 4.48000 9.76000 16.58000 6.36000 14.86000
+ 8.32000 7.24000 12.12000 13.68000 13.47000
+ 15.35000 14.88000 6.31000 0.54000 12.64000
+ 8.84000 15.65000 7.16000 12.31000 17.65000
+ 12.37000 1.59000 11.78000 13.55000 11.18000
+
+配列の和を求めて新しい配列に格納する関数を作成することができた。
+先ほどと同様にforループを使った二重ループの中でお互いの要素を足し算することでうまく求めることができた。
+
+(4) matrix_trans2
+配列 A に格納された n×n 行列の転置行列を求め, 結果を配列 Y に格納する関数 void matrix_trans2(int n, double A[N][N], double Y[N][N]) を作成し,
+matrix.c に追加追加した.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B4 % gcc -Wall matrix.c matrix4test.c
+gatahayato@Gatas-MacBook-Pro B4 % ./a.out < in2.txt > out.txt
+n = A
+gatahayato@Gatas-MacBook-Pro B4 % diff -w out.txt exp2.txt
+
+out.txtの内容は以下の通りである。
+A
+ 3.25000 9.42000 7.34000 0.12000 5.98000
+ 5.73000 7.11000 8.93000 6.32000 7.12000
+ 8.23000 5.44000 3.12000 0.29000 4.23000
+ 5.42000 6.22000 2.93000 4.32000 9.22000
+ 7.13000 1.36000 9.34000 4.21000 4.31000
+Y
+ 3.25000 5.73000 8.23000 5.42000 7.13000
+ 9.42000 7.11000 5.44000 6.22000 1.36000
+ 7.34000 8.93000 3.12000 2.93000 9.34000
+ 0.12000 6.32000 0.29000 4.32000 4.21000
+ 5.98000 7.12000 4.23000 9.22000 4.31000
+
+行列の転置行列を求める関数を表示することができた。
+二重ループの中でY[j][i] = A[i][j]とすることで、お互いの要素を反転させることができた。
+MacBookで作成していたところ、正体不明のエラーに遭遇したため、学校のPCで続きを作成した。
+
+(5) matrix_trans1
+配列 A に格納された n×n 行列を転置する (転置の結果を A に格納する) 関数 void matrix_trans1(int n, double A[N][N]) 
+を作成し, matrix.c に追加した.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B4 % diff -w out.txt exp2.txt
+gatahayato@Gatas-MacBook-Pro B4 % gcc -Wall matrix.c matrix5test.c
+gatahayato@Gatas-MacBook-Pro B4 % ./a.out < in2.txt > out.txt
+n = A
+gatahayato@Gatas-MacBook-Pro B4 % diff -w out.txt exp4.txt
+
+out.txtの内容は以下の通りである。
+A
+ 3.25000 9.42000 7.34000 0.12000 5.98000
+ 5.73000 7.11000 8.93000 6.32000 7.12000
+ 8.23000 5.44000 3.12000 0.29000 4.23000
+ 5.42000 6.22000 2.93000 4.32000 9.22000
+ 7.13000 1.36000 9.34000 4.21000 4.31000
+A
+ 3.25000 5.73000 8.23000 5.42000 7.13000
+ 9.42000 7.11000 5.44000 6.22000 1.36000
+ 7.34000 8.93000 3.12000 2.93000 9.34000
+ 0.12000 6.32000 0.29000 4.32000 4.21000
+ 5.98000 7.12000 4.23000 9.22000 4.31000
+
+変数tmpを使い、tmpの中にA[j][i]の要素をコピーした後にA[j][i]にA[j][i]をコピーすることでうまく作成することができた。
+先生がおっしゃっていたように、中身を交換するときには、適当な変数を用意し、
+コピー先の要素を変数に入れることで交換することができることを勉強した。
+
+(6) vector_scan, vector_print
+標準入力から n 次元ベクトルのデータを配列 x[N] に読み込む関数 void vector_scan(int n, double x[N]) を matrix.c に追加した.
+また, 配列 x[N] に格納された n 次元ベクトルのデータを標準出力に出力する関数 void vector_print(int n, double x[N]) を作成した. 
+数値の出力フォーマットは matrix_print と同様にせよ.
+
+実行結果は以下の通りである。
+n = 3
+x
+1
+2
+3
+x
+ 2.00000
+ 4.00000
+ 6.00000
+
+n次元のベクトルを読み込み、標準出力に出力することができた。
+今回の課題ではforループの1重ループの中でscanfを使うことでうまく実装することができた。
+入力された要素を表示する際、なぜか2倍した値が表示されていることに困惑したが、main関数を確認することを忘れてしまっていた。
+
+(7) matrix_vector_prod
+A[N][N] に格納された n×n 行列 と, x[N] に格納された n 次元ベクトルとの積を計算し, 
+結果をy[N]に格納する関数void matrix_vector_prod(int n, double A[N][N], double x[N], double y[N])をmatrix.c の中に作成した.
+
+実行結果は以下の通りである。
+gcc -Wall /cygdrive/c/Users/gata/Desktop/matrix.c /cygdrive/c/Users/gata/Desktop/matrix7test.c
+$ ./a < /cygdrive/c/Users/gata/Desktop/in4.txt > /cygdrive/c/Users/gata/Desktop/out.txt
+n =A
+x
+diff -w /cygdrive/c/Users/gata/Desktop/out.txt /cygdrive/c/Users/gata/Desktop/exp6.txt
+
+out.txtの内容は以下の通りである。
+A
+ 3.25000 9.42000 7.34000 0.12000 5.98000
+ 5.73000 7.11000 8.93000 6.32000 7.12000
+ 8.23000 5.44000 3.12000 0.29000 4.23000
+ 5.42000 6.22000 2.93000 4.32000 9.22000
+ 7.13000 1.36000 9.34000 4.21000 4.31000
+x
+ 1.23000
+ 0.34000
+ 9.24000
+ 6.24000
+ 8.88000
+y
+ 128.87310
+ 194.64090
+ 80.17330
+ 144.68500
+ 160.07710
+
+macの実行環境ではセグメーションフォルトが発生したが、Windowsでは特に問題なく実行することができた。
+原因が不明なため、今回はwindows(学校のPC)で実行できたことを根拠に課題完成とさせていただきます。
+forループの二重ループの中で、y[i] += x[j] * A[i][j]とすることでうまく計算することができた。
+
+[課題全体の感想]
+課題4.1では主に配列を使って行列を計算する練習をした。
+徳に苦戦することはなかったが、課題の数が多かったため時間がかかってしまった。
+MacBookでは実行できず、学校のPCでは実行できるようなエラーに何度か遭遇した。
+原因が分からなかったため、学校のPCをプライマリにして作成するようにしていきたい。
+　
+----------------------------------------
+
+[課題 4.2]
+ビットマップデータに対する画像処理を行うためのプログラムを作成した。
+
+(1) 色調の変更 (image1cool.c)
+下記の指示に従い, 画像を全体に「涼しげ」にするプログラム image1cool.c を実装した.
+
+変更した箇所は以下の通りである。
+img[i][j].r = img[i][j].r*0.8;
+
+問題の条件通り、赤色の輝度のみを0.5倍した。
+
+(2) モノクロ化 (image1mono.c)
+ビットマップ画像 in.bmp を入力し, 画像をモノクロに変換して out.bmp に出力するプログラム image1mono.c を作成した.
+
+変更した箇所は以下の通りである。
+img[i][j].r = (img[i][j].r + img[i][j].g + img[i][j].b) / 3;
+img[i][j].g = (img[i][j].g + img[i][j].r + img[i][j].b) / 3;
+img[i][j].b = (img[i][j].r + img[i][j].g + img[i][j].b) / 3;
+
+全ての画素の輝度を等しくすることで、画像をモノクロにすることができた。
+
+(3) フレームの描画 (image1frame.c)
+ビットマップ画像 in.bmp を入力し, 幅8画素でピンク色のフレーム (外枠) を付加して out.bmp に出力するプログラム image1frame.c を作成した。
+
+変更した箇所は以下の通りである。
+for (i = 0; i < hd->biHeight; i++)
+    { /* biHeight は画像の高さ */
+        for (j = 0; j < hd->biWidth; j++)
+        { /* biWidth  は画像の幅 */
+            if((i < 8 || (hd->biHeight - i) < 8) || (j < 8 || (hd->biWidth - j) < 8))
+            {
+                img[i][j].r = 234;
+                img[i][j].g = 145;
+                img[i][j].b = 152;
+            }
+        }
+    }
+
+幅8画素の大きさでピンク色のフレームを画像に追加することができた。
+forループの二重ループの中で、横が8までの画素と、縦が8までの画素、
+また、それぞれの画像の横幅と縦幅-8の値の画素の色を変更することでフレームをつけることができた。
+
+(4) 鏡像 (image1mirror.c)
+ビットマップ画像 in.bmp を入力し, 上下を反転させた画像 (下図参照) を out.bmp に出力するプログラム image1mirror.c を作成した.
+
+変更した箇所は以下の通りである。
+for (i = 0; i < hd->biWidth; i++)
+    { /* biHeight は画像の高さ */
+    
+        for (j = 0; j < hd->biHeight / 2; j++)
+        { /* biWidth  は画像の幅 */
+            tmp.r = img[hd->biHeight - j][i].r;
+            img[hd->biHeight - j][i].r = img[j][i].r;
+            img[j][i].r = tmp.r;
+
+            tmp.g = img[hd->biHeight - j][i].g;
+            img[hd->biHeight - j][i].g = img[j][i].g;
+            img[j][i].g = tmp.g;
+
+            tmp.b = img[hd->biHeight - j][i].b;
+            img[hd->biHeight - j][i].b = img[j][i].b;
+            img[j][i].b = tmp.b;
+
+            
+        }
+    }
+
+先ほどの課題で数列の転地を行ったが、それと同様の考えで、
+変数を利用することで上と下の画素を入れ替えることで画像を反転させることができた。
+
+(5) モザイク (image1mosaic.c)
+in.bmp の画像の左半分に 16×16 画素のモザイクをかけて out.bmp に出力するプログラム image1mosaic.c を作成した.
+
+変更した箇所は以下の通りである。
+            int red = 0;
+            int green = 0;
+            int blue = 0;
+            int count;
+
+            count = 0;
+            for (k = 0; k < 16; k++)
+            {
+                for (g = 0; g < 16; g++)
+                {
+                    red += img[i + k][j + g].r;
+                    green += img[i + k][j + g].g;
+                    blue += img[i + k][j + g].b;
+                    count++;
+                }
+            }
+            red /= count;
+            green /= count;
+            blue /= count;
+
+            for (k = 0; k < 16; k++)
+            {
+                for (g = 0; g < 16; g++)
+                {
+                    img[i + k][j + g].r = red;
+                    img[i + k][j + g].g = green;
+                    img[i + k][j + g].b = blue;
+                }
+            }
+forループの二重ループの中で、さらに二つの二重ループを使い、上のループで16x16の画素の数値を足し、
+その後、平均をとったものを全ての画素に代入することでモザイクをかけることができた。
+かなり苦戦してしまい、外のループの変数をi+=16とすることを見落としてしまっていた。
+
+(6) 縮小 (image1collapse.c)
+in.bmp の縦方向のサイズを半分に縮小して out.bmp に出力するプログラム image1collapse.c を作成せよ
+
+変更した箇所は以下の通りである。
+for (i = 0; i < hd->biHeight; i++)
+    {
+        for (j = 0; j < hd->biWidth ; j++)
+        {
+            // int red = 0;
+            // int green = 0;
+            // int blue = 0;
+            // int count;
+
+            // count = 0;
+            img[i][j].r = (img[i * 2][j].r + img[i * 2 + 1][j].r) / 2;
+            img[i][j].g = (img[i * 2][j].g + img[i * 2 + 1][j].g) / 2;
+            img[i][j].b = (img[i * 2][j].b + img[i * 2 + 1][j].b) / 2;
+         
+
+            
+        }
+    }
+
+(x,y)の画素の値を(x, 2y),(x, 2y+1)の値を平均したものにすることで実装することができたが、
+問題文を読み間違えてしまい、これら二つの座標の平均をとった画素の値を代入してしまった。
+テストも近いため、改めて課題を問題文をしっかり読み直しながら解き直していきたい。
+
+----------------------------------------
+
+[課題 4.3]
+
+課題 (4-2) において, ビットマップのヘッダ (bmp_header_t 型) と画素配列 (pixel_t の2次元配列) をまとめ, 
+次のような一つの構造体型 bmp_data_t で表現するように変更した.
+
+typedef struct {
+  bmp_header_t header;
+  pixel_t img[MAX_Y][MAX_X];
+} bmp_data_t;
+
+即ち, image1.h を次の image2.h に変更する. image1.c と image1collapse.c をそれぞれこのデータ構造に適合する 
+image2.c, image2collapse.c に書き換えよ.
+image2.h
+#define MAX_Y 512 /* 最大画像サイズ (横方向) */
+#define MAX_X 512 /* 最大画像サイズ (縦方向) */
+
+#define LEVEL 256  /* 画素の階調 */
+#define HIGH  255  /* 画素の輝度の最大値 */
+#define LOW     0  /* 画素の輝度の最小値 */
+
+typedef struct {
+   unsigned short  bfType;
+   unsigned int    bfSize;
+   unsigned short  bfReserved1;
+   unsigned short  bfReserved2;
+   unsigned int    bfOffBits;
+   unsigned int    biSize;
+   unsigned int    biWidth;
+   unsigned int    biHeight;
+   unsigned short  biPlanes;
+   unsigned short  biBitCount;
+   unsigned int    biCompression;
+   unsigned int    biSizeImage;
+   unsigned int    biXPelsPerMeter;
+   unsigned int    biYPelsPerMeter;
+   unsigned int    biClrUsed; 
+   unsigned int    biClrImportant;
+} bmp_header_t;
+
+typedef struct {
+   unsigned char r;
+   unsigned char g;
+   unsigned char b;
+} pixel_t;
+
+typedef struct {
+   bmp_header_t header;
+   pixel_t img[MAX_Y][MAX_X];
+} bmp_data_t;
+
+void bmp_read(char filename[], bmp_data_t *bmp);
+void bmp_write(char filename[], bmp_data_t *bmp);
+
+変更点が多すぎるため、このレポートでは概要のみ記させていただく。
+image2.cの中のbmp_read, bmp_writeの二つの関数の中の処理をそれぞれ
+fread(&hd->header.biClrUsed, sizeof(hd->header.biClrUsed), 1, fp);
+fwrite(&hd->header.bfType, sizeof(hd->header.bfType), 1, fp);
+のように構造体に適合するように書き換えた。
+また、関数内のループの条件も
+for (i = 0; i < hd->header.biHeight; i++)
+ように構造体に適合するように書き換えた。
+
+この課題は問題文にあったように、細かい修正点が多く、エラーを解消することに時間を取られてしまった。
+やる作業としては単純なのだが、自分がどこの部分を修正しているのかが分からなくなることがあった。
+ダイキ部なプログラムの修正は時間がかかってしまうことがわかったので、これからチーム開発などをするときには
+変更する部分を細かくまとめてわかりやすくするよう心がけていきたい。
+
+----------------------------------------
+
+[課題 B4 の感想]
+今回の課題では、初めに配列を使って数列を取り扱い、その後は画像の処理を勉強した、
+春に履修したメディア工学基礎で、Pythonを使って画像の処理を勉強したが、
+C言語で画像の処理をするのは初めてであったため、かなり苦戦したが、関数や構造体のいい練習になったと感じる。
+いよいよテストを迎えるため、しっかりと今までの練習を思い出しながらテストに臨むようにしていきたい。
