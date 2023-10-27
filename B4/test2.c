@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "image1.h"
+#include "test2.h"
 
 /*******************************************************
    24ビット-ビットマップデータ (BMPファイル) のファイル入出力

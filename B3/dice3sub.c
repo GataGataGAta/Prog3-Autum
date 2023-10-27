@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define N_MAX 1024
-
+#define D3_MIN (1+1+1)
+#define D3_MAX (6+6+6)
 
 int  irand(int a, int b)
 {

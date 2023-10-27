@@ -1,0 +1,1 @@
+void average(double a, double b, double *p_a, double *p_m);

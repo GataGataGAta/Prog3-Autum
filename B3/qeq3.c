@@ -5,7 +5,7 @@
 int qeq(double a, double b, double c, double *x1, double *x2)
 {
     double D = 0;
-    double *y;
+    double y = 0;
     D = b * b - 4 * a * c;
     if(D < 0)
     {
@@ -26,9 +26,9 @@ int qeq(double a, double b, double c, double *x1, double *x2)
         }
         else
         {
-            *y = *x1;
+            y = *x1;
             *x1 = *x2;
-            *x2 = *y;
+            *x2 = y;
             return 2;
         }
         return 2;
