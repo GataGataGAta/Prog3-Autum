@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "pref1.h"
+#include "pref.h"
 
 int main(void)
 {

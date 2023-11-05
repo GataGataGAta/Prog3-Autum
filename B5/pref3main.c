@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "pref1.h"
+#include "pref.h"
 
 #define MAX_PREF 47
 
@@ -23,7 +23,7 @@ int main(void)
 
     for (int i = count - 1; i >= 0; i--)
     {
-        printf("%s %f %d\n", prefs[i]->name, prefs[i]->area, prefs[i]->population);
+        printf("%s %.2f %d\n", prefs[i]->name, prefs[i]->area, prefs[i]->population);
     }
 
     for (int i = 0; i < count; i++)
