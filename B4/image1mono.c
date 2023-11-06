@@ -20,15 +20,17 @@ int main(void)
 void bmp_mono(bmp_header_t *hd, pixel_t img[MAX_Y][MAX_X])
 {
     int i, j;
+    int sum = 0;
 
     /**** 以下 (現状は画像を全体に暗くする処理になっている) を書き換えて完成させよ ****/
     for (i = 0; i < hd->biHeight; i++)
     { /* biHeight は画像の高さ */
         for (j = 0; j < hd->biWidth; j++)
         { /* biWidth  は画像の幅 */
-            img[i][j].r = (img[i][j].r + img[i][j].g + img[i][j].b) / 3;
-            img[i][j].g = (img[i][j].g + img[i][j].r + img[i][j].b) / 3;
-            img[i][j].b = (img[i][j].r + img[i][j].g + img[i][j].b) / 3;
+            sum = (img[i][j].r + img[i][j].g + img[i][j].b) / 3;
+            img[i][j].r = sum;
+            img[i][j].g = sum;
+            img[i][j].b = sum;
         }
     }
     /************** ここまで *************************************************/

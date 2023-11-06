@@ -6,7 +6,7 @@ int main(void)
 	int n;
 	fprintf(stderr, "n =");
 	scanf("%d", &n);
-	double A[n][n], x[n], y[n];
+	double A[N][N], x[N], y[N];
 	
 	fprintf(stderr,"A\n");
 	matrix_scan(n, A);
