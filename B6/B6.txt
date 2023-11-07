@@ -1,0 +1,215 @@
+科目名: プログラミング実習III
+課題: B6
+番号: 37022503
+氏名: 山形 隼士
+作成: 2023/11/6
+
+----------------------------------------
+[課題6.1]
+次のヒントを参考に, list.c 中の list_print と insert_node とを完成させ, list1test.c が実行できるようにした.
+list_node_t はリストを構成するの節点の情報を記憶するための型であり, list.h に定義されている. 
+教科書 p. 171 のnode_t と基本的に同じである. 名前が list_node_t となっていることと, 
+データ部のメンバ名が value ではなく val になっていることと, 宣言の書き方が違っているだけである.
+void list_print(list_node_t *head_p) は, head_p をヘッダとするリストの表示を行う関数である. 
+教科書 p. 178 のリスト 6.3 と基本的に同じである.
+list_node* insert_node(list_node_t *n, int val) は, ポインタ n が指す節点の直後に値 val を保持する節点を挿入する関数である.
+教科書 p. 173 のリスト 6.1 と基本的に同じである. 新しい節点を作る部分を関数 create_node として分離していることや, 
+節点を作るのに失敗した場合の処理が異なるだけである.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B6 % gcc -Wall list1test.c list.c
+list.c:82:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:87:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:92:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:97:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:102:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:107:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:112:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:56:13: warning: unused function 'remove_node' [-Wunused-function]
+static void remove_node(list_node_t *p)
+            ^
+8 warnings generated.
+gatahayato@Gatas-MacBook-Pro B6 % ./a.out 
+input = 3
+[ 3 ]
+input = 5
+[ 5 3 ]
+input = 4
+[ 4 5 3 ]
+input = 3
+[ 3 4 5 3 ]
+input = % 
+
+この課題においては、全体の機能のうち、入力をリストに挿入する部分と出力する部分のみ実装されている。
+教科書の記述を読みながら作成することができた。リストは前回の動的割り当て同様プロ2では扱わなかったので
+しっかりと教科書を読み、理解しながら進めていきたい。
+
+----------------------------------------
+[課題6.2]
+list.c 中の関数 list_find を完成させ, 下記の list2test.c とリンクして動作確認した.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B6 % gcc list2test.c list.c
+list.c:88:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:92:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:96:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:100:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:104:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:108:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+6 warnings generated.
+gatahayato@Gatas-MacBook-Pro B6 % ./a.out               
+input = 4
+[ 4 ]
+input = 5
+[ 5 4 ]
+input = 3
+[ 3 5 4 ]
+input = 3
+[ -3 5 4 ]
+input = %
+
+リストに整数値を入力し、同じものが入力された際に符号を反転させることができた。
+list_find関数内において、p->valが入力されたvalと同じ時はその接点へのポインタを返し、
+それ以外の際にはNULLを返すことで機能を実装することができた。
+
+----------------------------------------
+[課題6.3]
+list.c 中の関数 list_insert_uniq を完成させ, 下記の list3test.c とリンクして動作確認した.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B6 % gcc list3test.c list.c
+list.c:104:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:108:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:112:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:116:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+list.c:120:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+5 warnings generated.
+^[[                                                                                                                                                                
+gatahayato@Gatas-MacBook-Pro B6 % ./a.out               
+input = 3
+[ 3 ]
+input = 3
+[ 3 ]
+input = 4
+[ 4 3 ]
+input = 2
+[ 2 4 3 ]
+input = 0
+[ 0 2 4 3 ]
+input = 
+
+list_insert_uniqを完成させることで、同じ値でない場合のみリストに値を入力することができた。
+関数内において、問題文どうり最初にlist_node_t型のfindという変数を定義し、findがNULLでない場合、
+すなわち同じ値がない場合のみinsert_node関数を呼び出すことで実装することができた。
+
+----------------------------------------
+[課題6.4]
+下記の処理を行い, (1)(2)(3) それぞれの処理に要する計算時間を表示するプログラム list4time.c を作成した。
+
+(0) 標準入力から正整数 n を入力する.
+
+(1) 乱数を n 個発生させ, それを list_insert_uniq で順次リストに挿入する.
+
+(2) (1)と同じ乱数を n 個発生させ, list_find でそのデータをリスト中に検索する.
+
+(3) (1)と異なる乱数を n 個発生させ, list_find でそのデータをリスト中に検索する.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B6 % ./a.out                        
+乱数を何個生成しますか?:5000
+一つ目の乱数の挿入 = 0.01793 [sec]
+(1)と同じ乱数の検索 = 0.015981 [sec]
+新しい乱数の検索 = 0.03042 [sec]
+
+gatahayato@Gatas-MacBook-Pro B6 % ./a.out
+乱数を何個生成しますか?:10000\
+一つ目の乱数の挿入 = 0.086442 [sec]
+(1)と同じ乱数の検索 = 0.060951 [sec]
+新しい乱数の検索 = 0.123154 [sec]
+
+gatahayato@Gatas-MacBook-Pro B6 % ./a.out
+乱数を何個生成しますか?:15000
+一つ目の乱数の挿入 = 0.172954 [sec]
+(1)と同じ乱数の検索 = 0.13531 [sec]
+新しい乱数の検索 = 0.269457 [sec]
+
+gatahayato@Gatas-MacBook-Pro B6 % ./a.out
+乱数を何個生成しますか?:20000
+一つ目の乱数の挿入 = 0.310959 [sec]
+(1)と同じ乱数の検索 = 0.245402 [sec]
+新しい乱数の検索 = 0.52503 [sec]
+
+gatahayato@Gatas-MacBook-Pro B6 % ./a.out
+乱数を何個生成しますか?:25000
+一つ目の乱数の挿入 = 0.389429 [sec]
+(1)と同じ乱数の検索 = 0.371132 [sec]
+新しい乱数の検索 = 0.729761 [sec]
+
+
+----------------------------------------
+[課題6.5]
+list.c 中の関数 list_insert_delete_dup を完成させ, 下記の list5test.c とリンクして動作確認した.
+
+実行結果は以下の通りである。
+input = 5
+[ 5 ]
+input = 4
+[ 4 5 ]
+input = 4
+[ 5 ]
+input = %   
+
+list_insert_delete_dup関数の中で、まずlist_find関数を呼び出し、結果をfindという変数に代入することで、
+そのfind変数がNULLでない時には、一つ前の接点をwhileループを使い求め、その接点をremove_nodeに入れることで削除することができた。
+また、findがNULLの時にlist_insertを使い、リストに数値を代入することができた。
+
+----------------------------------------
+[課題6.6]
+
+input = 3
+[ 3 ]
+input = 5
+[ 3 5 ]
+input = 4
+[ 3 4 5 ]
+input = 4
+[ 3 4 5 ]
+input = %     
+----------------------------------------
+[課題 B6 の感想]
