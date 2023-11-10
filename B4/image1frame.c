@@ -26,7 +26,13 @@ void bmp_frame(bmp_header_t *hd, pixel_t img[MAX_Y][MAX_X])
     { /* biHeight は画像の高さ */
         for (j = 0; j < hd->biWidth; j++)
         { /* biWidth  は画像の幅 */
-            if((i < 8 || (hd->biHeight - i) < 8) || (j < 8 || (hd->biWidth - j) < 8))
+            if(j < 8 || (hd->biWidth - j - 1) < 8)
+            {
+                img[i][j].r = 234;
+                img[i][j].g = 145;
+                img[i][j].b = 152;
+            }
+            if(i < 8 || (hd->biHeight - i - 1) < 8)
             {
                 img[i][j].r = 234;
                 img[i][j].g = 145;
