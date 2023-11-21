@@ -1,0 +1,309 @@
+科目名: プログラミング実習III
+課題: B8
+番号: 37022503
+氏名: 山形 隼士
+作成: 2023/11/21
+
+----------------------------------------
+[課題8.1]
+db_dump を完成させ, 下記の test1-exp.txt と同じ出力が得られるようにした.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc iata_data_test1.c iata_db.c
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out > out.txt
+gatahayato@Gatas-MacBook-Pro B8 % diff -Bw test1exp.txt out.txt
+
+out.txtの内容は以下の通りである。
+[   0] AAC Al Arish : Egypt - Al Arish Airport
+[   1] FCO Rome : Italy Leonardo Da Vinci/Fiumicino
+[   2] ITM Osaka : Japan Itami International Was Osaka
+[   3] JFK New York : NY : USA John F Kennedy Intl Airport
+[   4] JRO Kilimanjaro : Tanzania Kilimanjaro
+[   5] KIX Osaka : Japan Kansai International
+[   6] NRT Tokyo : Japan - Narita
+[   7] PEK Beijing : China Peking Capital Airport
+[   8] SAF Santa Fe : NM : USA Santa Fe Municipal Airport
+[   9] SFO San Francisco : CA : USA San Francisco Intl Airport
+[  10]     
+[  11]     
+[  12]     
+[  13]     
+[  14]     
+[  15]     
+
+データを出力する関数db_dumpを作成した。
+基本的には問題文のアドバイス通り、db_init関数を参考にした。
+db_init内ではstrcpyを使用していた部分をprintに変更し、それをしたのちに
+db->record[i].data = NULLとした。
+
+----------------------------------------
+[課題8.2]
+空港データの検索を行う関数 char *db_linear_search(db_t *db, char key[]) を作成し, iata_db.c に追加した.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc -Wall iata_db.c iata_test2.c
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out < tes2in.txt > out.txt 
+key = key = key = key = key = key = key = key = key = key = key = key = key = key =
+key = key = key = key = key = 
+gatahayato@Gatas-MacBook-Pro B8 % diff -Bw out.txt test2exp.txt
+
+out.txtの内容は以下の通りである。
+AAC => Al Arish : Egypt - Al Arish Airport
+NO RECORD
+FCO => Rome : Italy Leonardo Da Vinci/Fiumicino
+JFK => New York : NY : USA John F Kennedy Intl Airport
+JRO => Kilimanjaro : Tanzania Kilimanjaro
+KIX => Osaka : Japan Kansai International
+NO RECORD
+NRT => Tokyo : Japan - Narita
+NO RECORD
+NO RECORD
+NO RECORD
+PEK => Beijing : China Peking Capital Airport
+SAF => Santa Fe : NM : USA Santa Fe Municipal Airport
+NO RECORD
+ITM => Osaka : Japan Itami International Was Osaka
+SFO => San Francisco : CA : USA San Francisco Intl Airport
+NO RECORD
+NO RECORD
+
+前回の課題に引き続いて、iata_db.cの中にdb_linear_search関数を作成した。
+forループを使い、その中で空港のレコードと入力された文字が一致しているかをチェックした。
+また、ループが終了したのちに、NULLを返すことで、一致するものがない場合の処理を実装できた。
+
+----------------------------------------
+[課題8.3]
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc -Wall iata_cpu.c iata_db.c
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out < in3.txt > out.txt   
+
+out.txtの内容は以下の通りである。
+key = key = key = key = key = key = key = key = key = key = key = 
+cpu =    0.001317 [sec]
+AAC => Al Arish : Egypt - Al Arish Airport
+cpu =    0.143519 [sec]
+CXI => Christmas Island : Australia - Cassidy Airport
+cpu =    0.215614 [sec]
+IYK => Inyokern : CA : USA Inyokern Airport
+cpu =    0.327097 [sec]
+MVD => Montevideo : Uruguay Carrasco
+cpu =    0.417243 [sec]
+SJW => Shijiazhuang : China Shijiazhuang
+cpu =    0.508085 [sec]
+YFB => Iqaluit : Northwest Territories : Canada - Iqaluit-Frobisher Bay Airport
+cpu =    0.547561 [sec]
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+cpu =    0.570736 [sec]
+NO RECORD
+cpu =    0.565637 [sec]
+NO RECORD
+cpu =    0.547245 [sec]
+NO RECORD
+
+最適化を行った場合の結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc -O2 iata_cpu.c iata_db.c 
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out < in3.txt > out.txt
+
+key = key = key = key = key = key = key = key = key = key = key = 
+out.txtの内容は以下の通りである。
+cpu =    0.000971 [sec]
+AAC => Al Arish : Egypt - Al Arish Airport
+cpu =    0.101420 [sec]
+CXI => Christmas Island : Australia - Cassidy Airport
+cpu =    0.128780 [sec]
+IYK => Inyokern : CA : USA Inyokern Airport
+cpu =    0.196707 [sec]
+MVD => Montevideo : Uruguay Carrasco
+cpu =    0.242743 [sec]
+SJW => Shijiazhuang : China Shijiazhuang
+cpu =    0.294514 [sec]
+YFB => Iqaluit : Northwest Territories : Canada - Iqaluit-Frobisher Bay Airport
+cpu =    0.315208 [sec]
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+cpu =    0.335864 [sec]
+NO RECORD
+cpu =    0.331750 [sec]
+NO RECORD
+cpu =    0.315305 [sec]
+NO RECORD
+
+最適化を行った場合、全体的に探索にかかる時間が短くなっているが、
+特にNO RECORDなどの多くの動作を必要とする場合には、
+特に、実行時間に顕著な差が見られることがわかる。
+----------------------------------------
+[課題8.4]
+二分探索により空港データの検索を行う関数 char *db_binary_search(db_t *db, char key[KEY_LEN+1]) を作成し, iata_db.c に追加した。
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc iata_test4.c iata_db.c     
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out < test2in.txt > out.txt
+key = key = key = key = key = key = key = key = key = key = key =
+key = key = key = key = key = key = key = key =
+gatahayato@Gatas-MacBook-Pro B8 % diff -Bw test2exp2.txt out.txt
+
+out.txtの内容は以下の通りである。
+AAC => Al Arish : Egypt - Al Arish Airport
+CDG => Paris : France Charles De Gaulle
+FCO => Rome : Italy Leonardo Da Vinci/Fiumicino
+JFK => New York : NY : USA John F Kennedy Intl Airport
+JRO => Kilimanjaro : Tanzania Kilimanjaro
+KIX => Osaka : Japan Kansai International
+NO RECORD
+NRT => Tokyo : Japan - Narita
+ICN => Incheon [Seoul] : South Korea - Incheon International Airport
+SYD => Sydney : New South Wales : Australia Sydney /KingsfordSmith/ Airport
+LHR => London : England : United Kingdom Heathrow
+PEK => Beijing : China Peking Capital Airport
+SAF => Santa Fe : NM : USA Santa Fe Municipal Airport
+NO RECORD
+ITM => Osaka : Japan Itami International Was Osaka
+SFO => San Francisco : CA : USA San Francisco Intl Airport
+NO RECORD
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+
+課題2_5で作成した二分法のプログラムを流用することで、うまく二分探索をする関数を実装できた。
+具体的には、while文の条件をleft>rightに指定し、その中で、問題文の記述通りの処理を実行した。
+課題2_5では、この処理がどのように使われるのかよくわかっていなかったが、この課題にて、探索に使えるということがわかった。
+
+----------------------------------------
+[課題8.5]
+課題 (8-3) の iata_cpu1.c の db_linear_search を db_binary_search に書き換えて iata_cpu2.c を作成し, 二分探索の計算時間を計測した.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc iata_cpu2.c iata_db.c
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out < in3.txt > out.txt
+key = key = key = key = key = key = key = key = key = key = key =
+cpu =    0.013918 [sec]
+AAC => Al Arish : Egypt - Al Arish Airport
+cpu =    0.008953 [sec]
+CXI => Christmas Island : Australia - Cassidy Airport
+cpu =    0.009900 [sec]
+IYK => Inyokern : CA : USA Inyokern Airport
+cpu =    0.008947 [sec]
+MVD => Montevideo : Uruguay Carrasco
+cpu =    0.007062 [sec]
+SJW => Shijiazhuang : China Shijiazhuang
+cpu =    0.007215 [sec]
+YFB => Iqaluit : Northwest Territories : Canada - Iqaluit-Frobisher Bay Airport
+cpu =    0.006557 [sec]
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+cpu =    0.007037 [sec]
+NO RECORD
+cpu =    0.007470 [sec]
+NO RECORD
+cpu =    0.006098 [sec]
+NO RECORD
+
+最適化を行った場合の結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc -O2 iata_cpu2.c iata_db.c
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out < in3.txt > out.txt  
+key = key = key = key = key = key = key = key = key = key = key = 
+cpu =    0.009069 [sec]
+AAC => Al Arish : Egypt - Al Arish Airport
+cpu =    0.005858 [sec]
+CXI => Christmas Island : Australia - Cassidy Airport
+cpu =    0.007438 [sec]
+IYK => Inyokern : CA : USA Inyokern Airport
+cpu =    0.006513 [sec]
+MVD => Montevideo : Uruguay Carrasco
+cpu =    0.005509 [sec]
+SJW => Shijiazhuang : China Shijiazhuang
+cpu =    0.005681 [sec]
+YFB => Iqaluit : Northwest Territories : Canada - Iqaluit-Frobisher Bay Airport
+cpu =    0.005624 [sec]
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+cpu =    0.005290 [sec]
+NO RECORD
+cpu =    0.005795 [sec]
+NO RECORD
+cpu =    0.004811 [sec]
+NO RECORD
+
+課題8_3のように最適化を行う場合と、そうでない場合の実行時間を計測し、それらを比較した。
+特に、結果がNO RECORDとなるような探索に時間がかかる場合は、最適化をした上での実行にかかる時間が短くなっている。
+加えて、探索結果がある場合でも、全体的に最適化を行った法が探索時間が短いため、C言語で探索を行う機能を実装する場合には、
+最適化を行った方が良いと言える。
+
+----------------------------------------
+[課題8.6]
+
+(1)
+gatahayato@Gatas-MacBook-Pro B8 % gcc -Wall iata_db.c iata_test6.c 
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out > out.txt
+gatahayato@Gatas-MacBook-Pro B8 % diff -Bw out.txt test6_exp.txt
+
+out.txtの内容は以下の通りである。
+[  0]SFO San Francisco : CA : USA San Francisco Intl Airport
+[  1]
+[  2]AAC Al Arish : Egypt - Al Arish Airport
+[  3]NRT Tokyo : Japan - Narita
+[  4]
+[  5]SAF Santa Fe : NM : USA Santa Fe Municipal Airport
+[  6]
+[  7]KIX Osaka : Japan Kansai International
+[  8]
+[  9]
+[ 10]JFK New York : NY : USA John F Kennedy Intl Airport
+[ 11]PEK Beijing : China Peking Capital Airport
+[ 12]ITM Osaka : Japan Itami International Was Osaka
+[ 13]
+[ 14]FCO Rome : Italy Leonardo Da Vinci/Fiumicino
+[ 15]JRO Kilimanjaro : Tanzania Kilimanjaro
+
+(2)
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc -Wall iata_db.c iata_test6b.c 
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out < test2in.txt > out.txt   
+code = code = code = code = code = code = code = code = code = code = 
+code = code = code = code = code = code = code = code = code =
+gatahayato@Gatas-MacBook-Pro B8 % diff -Bw out.txt test2exp2.txt
+
+out.txtの内容は以下の通りである。
+AAC => Al Arish : Egypt - Al Arish Airport
+CDG => Paris : France Charles De Gaulle
+FCO => Rome : Italy Leonardo Da Vinci/Fiumicino
+JFK => New York : NY : USA John F Kennedy Intl Airport
+JRO => Kilimanjaro : Tanzania Kilimanjaro
+KIX => Osaka : Japan Kansai International
+NO RECORD
+NRT => Tokyo : Japan - Narita
+ICN => Incheon [Seoul] : South Korea - Incheon International Airport
+SYD => Sydney : New South Wales : Australia Sydney /KingsfordSmith/ Airport
+LHR => London : England : United Kingdom Heathrow
+PEK => Beijing : China Peking Capital Airport
+SAF => Santa Fe : NM : USA Santa Fe Municipal Airport
+NO RECORD
+ITM => Osaka : Japan Itami International Was Osaka
+SFO => San Francisco : CA : USA San Francisco Intl Airport
+NO RECORD
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+
+
+
+----------------------------------------
+[課題8.7]
+
+実行結果は以下の通りである。
+cpu =    0.002560 [sec]
+AAC => Al Arish : Egypt - Al Arish Airport
+cpu =    0.002447 [sec]
+CXI => Christmas Island : Australia - Cassidy Airport
+cpu =    0.002357 [sec]
+IYK => Inyokern : CA : USA Inyokern Airport
+cpu =    0.002365 [sec]
+MVD => Montevideo : Uruguay Carrasco
+cpu =    0.005308 [sec]
+SJW => Shijiazhuang : China Shijiazhuang
+cpu =    0.039803 [sec]
+YFB => Iqaluit : Northwest Territories : Canada - Iqaluit-Frobisher Bay Airport
+cpu =    0.001241 [sec]
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+cpu =    0.001241 [sec]
+NO RECORD
+cpu =    0.000855 [sec]
+NO RECORD
+cpu =    0.000841 [sec]
+NO RECORD
+
+----------------------------------------
+[課題 B8 の感想]
