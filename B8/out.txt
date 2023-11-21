@@ -1,20 +1,20 @@
-cpu =    0.002560 [sec]
+cpu =    0.001692 [sec]
 AAC => Al Arish : Egypt - Al Arish Airport
-cpu =    0.002447 [sec]
+cpu =    0.001691 [sec]
 CXI => Christmas Island : Australia - Cassidy Airport
-cpu =    0.002357 [sec]
+cpu =    0.001689 [sec]
 IYK => Inyokern : CA : USA Inyokern Airport
-cpu =    0.002365 [sec]
+cpu =    0.001488 [sec]
 MVD => Montevideo : Uruguay Carrasco
-cpu =    0.005308 [sec]
+cpu =    0.004243 [sec]
 SJW => Shijiazhuang : China Shijiazhuang
-cpu =    0.039803 [sec]
+cpu =    0.023882 [sec]
 YFB => Iqaluit : Northwest Territories : Canada - Iqaluit-Frobisher Bay Airport
-cpu =    0.001241 [sec]
+cpu =    0.000836 [sec]
 ZYL => Sylhet : Bangladesh - Sylhet Airport
-cpu =    0.001241 [sec]
+cpu =    0.000585 [sec]
 NO RECORD
-cpu =    0.000855 [sec]
+cpu =    0.000464 [sec]
 NO RECORD
-cpu =    0.000841 [sec]
+cpu =    0.000460 [sec]
 NO RECORD

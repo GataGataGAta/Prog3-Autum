@@ -226,8 +226,14 @@ NO RECORD
 
 ----------------------------------------
 [課題8.6]
+ハッシュ法 (closed hash) により空港データの検索を行えるようにするために,
+下記の 2 つの関数 db_hash_load と db_hash_search を作成し, iata_db.c に追加した.
 
 (1)
+void db_hash_load(db_t *db)
+db_load と同様, ファイルからデータを読み込む. db_load を参考に作成した.
+
+実行結果は以下の通りである。
 gatahayato@Gatas-MacBook-Pro B8 % gcc -Wall iata_db.c iata_test6.c 
 gatahayato@Gatas-MacBook-Pro B8 % ./a.out > out.txt
 gatahayato@Gatas-MacBook-Pro B8 % diff -Bw out.txt test6_exp.txt
@@ -250,7 +256,9 @@ out.txtの内容は以下の通りである。
 [ 14]FCO Rome : Italy Leonardo Da Vinci/Fiumicino
 [ 15]JRO Kilimanjaro : Tanzania Kilimanjaro
 
-(2)
+(2) char *db_hash_search(db_t *db, char key[KEY_LEN+1])
+db 中に key が key と一致するレコードを探し, その data (文字配列へのポインタ) を返す. key が一致するレコードがなければ NULL を返ようにした
+
 実行結果は以下の通りである。
 gatahayato@Gatas-MacBook-Pro B8 % gcc -Wall iata_db.c iata_test6b.c 
 gatahayato@Gatas-MacBook-Pro B8 % ./a.out < test2in.txt > out.txt   
@@ -278,12 +286,27 @@ SFO => San Francisco : CA : USA San Francisco Intl Airport
 NO RECORD
 ZYL => Sylhet : Bangladesh - Sylhet Airport
 
+以下(1)と(2)について感想、考察を記す。
+(1)
+ハッシュ関数を用いてファイルからデータを読み込むことができた。
+db_init関数を参考に、while文の条件を指定し、strcmp(db->record[h].key, "") != 0とすることで
+中身の判定をすることができた。また、その中でhの値を増やしていくが、MAX_RECORDSを超えないようにした。
 
+(2)
+問題文の条件通り、dbの中でkeyが入力されたkeyと一致するものを探し、そのdataを返り値にする関数を作成した。なお、一致しなければNULLを返す。
+基本的には(1)と同様の方式でhを増やし、一致するかどうかの判定をif文の条件に組み込んだ。
+while文の条件指定に苦戦してしまい、何度かNULLが多く帰ってきてしまっていた。
 
 ----------------------------------------
 [課題8.7]
+課題 (8-3) の iata_cpu1.c に対して下記の変更を行って iata_cpu3.c を作成し, ハッシュ法の計算時間を計測した.
 
 実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B8 % gcc -Wall iata_cpu3.c iata_db.c                                                                                                                                              
+gatahayato@Gatas-MacBook-Pro B8 % ./a.out < in3.txt > out.txt
+key = key = key = key = key = key = key = key = key = key = key =
+
+out.txtの内容は以下の通りである。
 cpu =    0.002560 [sec]
 AAC => Al Arish : Egypt - Al Arish Airport
 cpu =    0.002447 [sec]
@@ -305,5 +328,36 @@ NO RECORD
 cpu =    0.000841 [sec]
 NO RECORD
 
+最適化を行った場合の結果は以下の通りである。
+cpu =    0.001692 [sec]
+AAC => Al Arish : Egypt - Al Arish Airport
+cpu =    0.001691 [sec]
+CXI => Christmas Island : Australia - Cassidy Airport
+cpu =    0.001689 [sec]
+IYK => Inyokern : CA : USA Inyokern Airport
+cpu =    0.001488 [sec]
+MVD => Montevideo : Uruguay Carrasco
+cpu =    0.004243 [sec]
+SJW => Shijiazhuang : China Shijiazhuang
+cpu =    0.023882 [sec]
+YFB => Iqaluit : Northwest Territories : Canada - Iqaluit-Frobisher Bay Airport
+cpu =    0.000836 [sec]
+ZYL => Sylhet : Bangladesh - Sylhet Airport
+cpu =    0.000585 [sec]
+NO RECORD
+cpu =    0.000464 [sec]
+NO RECORD
+cpu =    0.000460 [sec]
+NO RECORD
+
+ハッシュを用いて探索を行う関数の実行時間を計測した。
+最適化を行った場合、実行時間が短くなるのはもちろんのこと、今まで計算してきた、二分探索や戦型探索と比べても
+短い時間において探索を行うことができている。データ構造とアルゴリズムの授業においても、ハッシュが高速であることは教わっていたが、
+コードを書いて実際に実行して、改めていかに高速であるかがわかった。
 ----------------------------------------
 [課題 B8 の感想]
+今回の課題では、二分探索と、ハッシュについて勉強した。
+二つとも他の授業において概要は勉強していたが、実際にコードを書いて実行したことはなかったため、
+実行された時間に差が発生しているのを観察し、改めてアルゴリズムの重要性を勉強することができた。
+オーダーや他の概念などでただ勉強した内容が、実際のコード内ではどのように実装されているのかということも
+しっかり勉強することができた。来週は中間テストのため、指定された課題をメインに復習していきたい。

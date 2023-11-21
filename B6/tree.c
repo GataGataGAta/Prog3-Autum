@@ -49,9 +49,9 @@ void tree_print(tree_node_t *n)
 {
     if (n != NULL)
     {
-        tree_print(n->left);    // 左の子ノードを再帰的に表示
-        printf(" %d", n->data); // 現在のノードの値を表示
-        tree_print(n->right);   // 右の子ノードを再帰的に表示
+        tree_print(n->left);    
+        printf(" %d", n->data); 
+        tree_print(n->right);   
     }
 }
 

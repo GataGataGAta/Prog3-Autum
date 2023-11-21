@@ -248,10 +248,13 @@ void db_hash_load(db_t *db)
         /* line から key と data を切り出す */
         extract_data(line, key, data);
         int h = db_hash_f(key);
-        /* db->n 番目のレコードに key と data を格納し, db->n を1増やす */
         while (strcmp(db->record[h].key, "") != 0)
-        {                              // ここで空きを確認（例えば、キーが空文字列であることを使う）
-            h = (h + 1) % MAX_RECORDS; // テーブルのサイズを超えないようにする
+        {
+            h++;
+            if (h == MAX_RECORDS)
+            {
+                h = 0;
+            }
         }
         record_set(&db->record[h], key, data);
         db->n++;
@@ -269,7 +272,11 @@ char *db_hash_search(db_t *db, char key[])
         {
             return db->record[h].data;
         }
-        h = (h + 1) % MAX_RECORDS;
+        h++;
+        if (h == MAX_RECORDS)
+        {
+            h = 0;
+        }
     }
     return NULL;
 }
