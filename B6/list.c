@@ -93,8 +93,8 @@ list_node_t *list_insert_uniq(list_node_t *head_p, int val)
     }
     else
     {
-        p = insert_node(head_p, val);
-        return p;
+       p = list_insert(head_p, val);
+       return p;
     }
 }
 
