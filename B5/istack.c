@@ -51,27 +51,26 @@ int istack_full(istack_t *s)
 }       /* スタックが満杯のとき 1 を, そうでないとき 0 を返す */
 void istack_push(istack_t *s, int d)
 {
-    if(s->sp < s->size)
+    if (s->sp >= s->size)
     {
-        s->data[s->sp] = d;
-        s->sp++;
+        int newSize = s->size * 2;
+        int *newData = (int *)realloc(s->data, sizeof(int) * newSize);
+        if (newData == NULL)
+        {
+            fprintf(stderr, "realloc が失敗\n");
+            exit(1);
+        }
+        s->data = newData;
+        s->size = newSize;
     }
-    if(s->sp == s->size)
-    {
-        s->size = s->size * 2;
-        s->data = (int *)realloc(s->data, sizeof(int) * s->size * 2);
-    }
-} /* データ d をスタック末尾に追加する */
+    s->data[s->sp] = d;
+    s->sp++;
+}/* データ d をスタック末尾に追加する */
 void istack_pop(istack_t *s, int *d)
 {
-    if(s->sp > 0)
+    if (s->sp > 0)
     {
         s->sp--;
         *d = s->data[s->sp];
     }
-    if(s->sp == 0)
-    {
-        *d = 0;
-    }
-
-} /* スタック末尾のデータを *d にセットし, スタックから削除する */
+}/* スタック末尾のデータを *d にセットし, スタックから削除する */
