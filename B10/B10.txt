@@ -1,0 +1,158 @@
+科目名: プログラミング実習III
+課題: B10
+番号: 37022503
+氏名: 山形 隼士
+作成: 2023/12/17
+
+----------------------------------------
+[課題10.1]
+次のプログラムは, 名前を入力するとその電話番号を出力するプログラムである. 名前と電話番号は
+Entry というクラスの配列で記憶している. Entry というクラスは, string name に名前を, string phone に電
+話番号を格納するものである. このプログラムは,
+1. 三田の電話番号の市外局番を削除する ("079-xxx-xxxx" を "xxx-xxxx" に書き換える).
+2. 入力した文字列を名前に含むものを検索し, その名前と電話番号を出力する.
+というものである. このプログラムの空白を適当に埋めて完成させた.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B10 % g++ -Wall 2_1.cpp
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out          
+検索用文字列を入力して下さい: s
+Kwansei Gakuin University (PR): 54-6017
+Kwansei Gakuin University (KSC): 565-7600
+Kobe University: 881-1212
+
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out
+検索用文字列を入力して下さい: S
+Kwansei Gakuin University (KSC): 565-7600
+Sanda Woodytown SATY: 564-8800
+Sanda Hotel: 564-1101
+
+市外局番の079-を削除するために、substr(4)を使うことで、前半四つ分の文字列を削除することができた。
+入力された電話番号の中には市外局番が0798-となっている場所もあったため、if文を用いて場合分けし、市外局番が四桁の場合は
+文字列の前半五文字を削除するようにした。また、入力された文字を含む要素を検索するために、find()を使用した。
+
+----------------------------------------
+[課題10.2]
+前の演習 10.1 で作成した [List 10.3] のプログラムを, 通常の配列の代わりに vector<Entry> を用
+いて書き換えた。また、24～ 28 行目のデータの追加には push back を用いた。
+
+実行結果は課題2_1と同様になるため、省略する。
+
+ひとつ前の課題2_1をvector<Entry>を用いて書き換えた。具体的には、配列の定義をする部分をvector<Entry>を使い書き換え、
+各データの追加の部分は問題の要求通りpush backを使用した、また、forループの条件は変数iの終了条件をe.size()を使って修正した。
+特に問題なく書き換えることができた。STLには様々な要素があるため、ひとつひとつ丁寧に理解していきたい。
+
+----------------------------------------
+[課題10.3]
+次のプログラムは, 学生の成績データを管理するものである. クラス Record は, 一人の学生の 
+[番号(id), 名前 (name), 点数 (score)] を記録するもので, 出力用の関数 (operator<<) が定義される. 成績データは, 
+クラス Seiseki の data に Record のリストとして記録されている. Seiseki は operator<< と 3 つのメンバ関数
+insert, lookup, erase worst を持つ. その働きは,
+1. insert(int id, const std::string& nm, int s): [番号 id, 名前 nm, 点数 s] というデータを追加する.
+2. lookup(int id): 番号が id のデータを検索し, std::cout に出力する. (なければ not found と出力).
+3. erase worst(): 点数の最も悪かった学生の Record を削除する.
+というものである. 空白を埋め, プログラムを完成させた.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B10 % g++ -Wall 2_3.cpp
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out          
+*** 成績簿 ***
+[7001] aaaa : 89
+[7123] bbbb : 70
+[7013] cccc : 55
+[7200] dddd : 99
+[7087] eeee : 83
+> 7001
+[7001] aaaa : 89
+> 7200
+[7200] dddd : 99
+> 2222
+not found
+> 3333
+not found
+> 0
+*** 成績簿 ***
+[7001] aaaa : 89
+[7123] bbbb : 70
+[7200] dddd : 99
+[7087] eeee : 83
+
+問題の条件にある3つの関数をそれぞれ実装することができた。以下、それぞれの関数について述べる。
+1つ目のinsert関数は、push_back(Record(id, nm, s))を使用することで、この関数の引数に指定されている要素を挿入することができた。
+2つ目のlookup関数は、イテレーターを初期化し、while文の中でイテレータのidとこの関数の引数のidが一致するかを確認することで実装することができた。
+3つ目のerase_worst関数は、イテレーターを二つ定義し、itをforループを使って操作し、ループ内にてworstより低い値が存在した場合、worstの値をその値に換装することで最小値を導出できた。
+
+----------------------------------------
+[課題10.4]
+演習 10.1 で作成した [List 10.3] と同様の動作をするプログラムを map を用いて書いた.
+map<std::string,std::string> を用い, 名前をキーとして電話番号を求められるようにした。
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B10 % g++ -Wall 2_4.cpp
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out
+検索用文字列を入力して下さい: Sanda
+Sanda Hotel: 564-1101
+Sanda Woodytown SATY: 564-8800
+
+問題の条件通り、mapを使って課題2_1と同様の機能を実装することができた。
+課題2_2を作成した時と同様に、配列の定義と、要素の代入、forループの条件を修正した。
+また、ループ内でfind(入力した文字列)がnposではない時に文字列を出力することで名前をキーにして電話番号を求めることができた。
+
+----------------------------------------
+[課題10.5]
+[List 10.11] のプログラムは, コンテナとして使用している list を vector に取り換えても
+そのまま動く. これを確認した.
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B10 % g++ -Wall 2_5.cpp
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out
+>3
+3 found
+3 found again
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out
+>10
+not found
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out
+>2
+2 found
+2 found again
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out
+>5
+5 found
+not found
+
+listをvectorに換装してもそのまま動くことがわかった。
+これは、STLのコンテナに対するイテレーターの動作がlistとvectorにおいて
+ほぼ違いがないからであると考えられる。
+
+----------------------------------------
+[課題10.6]
+前の演習 10.2 で作成した vector を用いた Phonebook のデータに対し, 
+名前順のソートと電話番号順のソートを行った。
+
+実行結果は以下の通りである。
+gatahayato@Gatas-MacBook-Pro B10 % g++ -Wall 2_6.cpp
+gatahayato@Gatas-MacBook-Pro B10 % ./a.out
+名前順に並べ替え
+Kobe University: 078-881-1212
+Kwansei Gakuin University (KSC): 079-565-7600
+Kwansei Gakuin University (PR): 0798-54-6017
+Sanda Hotel: 079-564-1101
+Sanda Woodytown SATY: 079-564-8800
+番号順に並べ替え
+Kobe University: 078-881-1212
+Sanda Hotel: 079-564-1101
+Sanda Woodytown SATY: 079-564-8800
+Kwansei Gakuin University (KSC): 079-565-7600
+Kwansei Gakuin University (PR): 0798-54-6017
+
+それぞれ名前順(アルファベットの辞書順)と電話番号順に並べ替えることができた。
+リスト10.13に書かれている二つのオブジェクトをコード内に追加することで、うまくソートすることができた。
+二つのオブジェクトは、それぞれe1がe2より小さい場合にtrueを返し、そうでない場合にはfalseを返すようにしている。
+
+----------------------------------------
+[課題 B10 の感想]
+今回の課題では、C++の標準ライブラリであるSTLについて勉強した。STLには様々な要素があり、理解をするには時間がかかると思うが使いながら少しずつ勉強していきたい。
+また、今まで自分たちがC言語を用いて実装してきたソーティングや探索をSTLを使うことで、簡単に実装することができるということがわかった。
+今まで書いてきたものは無駄ではないと思うが、これから個人で何かプログラムする際は、できるだけSTLのような便利なライブラリ等を使っていきたいと感じた。
+少しずつC++の書き方にも慣れてきたため、しっかりと12回目の課題まで作成して、C++に少しでも慣れるようにしていきたい。
