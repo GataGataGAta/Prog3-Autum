@@ -52,3 +52,56 @@ void stack::dump(std::ostream &os) const
         os << data[i] << " ";
     os << ")\n";
 }
+stack plus(const stack &s1, const stack &s2)
+{
+    int sz = s1.size() + s2.size();
+    stack result(sz);
+
+    stack copy1 = s1;
+    stack copy2 = s2;
+
+    stack tmp(copy1.size());
+    while (!copy1.empty())
+    {
+        tmp.push(copy1.top());
+        copy1.pop();
+    }
+    while (!tmp.empty())
+    {
+        result.push(tmp.top());
+        tmp.pop();
+    }
+    while (!copy2.empty())
+    {
+        tmp.push(copy2.top());
+        copy2.pop();
+    }
+    while (!tmp.empty())
+    {
+        result.push(tmp.top());
+        tmp.pop();
+    }
+
+    return result;
+}
+int main(void)
+{
+    stack s1(5);
+    stack s2(5);
+    stack s(10);
+
+    s1.push(1);
+    s1.push(3);
+    s1.push(5);
+    s2.push(2);
+    s2.push(4);
+    s2.push(6);
+
+    s = plus(s1, s2);
+
+    s1.dump(std::cout);
+    s2.dump(std::cout);
+    s.dump(std::cout);
+
+    return 0;
+}
