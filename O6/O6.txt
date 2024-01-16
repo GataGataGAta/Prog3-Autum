@@ -1,0 +1,145 @@
+科目名: プログラミング実習III
+課題: O6
+番号: 37022503
+氏名: 山形 隼士
+作成: 2023/1/15
+
+----------------------------------------
+[課題6.1]
+課題 (6-5) の list_insert_delete_dup を改良し, list_find を呼び出さないで, リストを一度走査するだけで list_insert_delete_dup と同じ動作を実現する関数 list_insert_delete_dup2 を作成せよ.
+
+list5test.c の list_insert_delete_dup を list_insert_delete_dup2 に変えた list6test.c を作成し, これとリンクして動作を確認せよ.
+
+次に, 下記の処理を行い, (2) と (4) の処理に要する計算時間を表示するプログラム list6time.c を作成し, list_insert_delete_dup とlist_insert_delete_dup2 の処理時間の違いを計測せよ. list6time.c を提出するとともに, なぜそのような違いが出るのかについて, 考察をレポートに記せ.
+
+(0) 標準入力から正整数 n を入力する.
+
+(1) 乱数を n 個発生させ, それを list_insert で順次リストに挿入する.
+
+(2) (1)と同じ乱数を n 個発生させ, list_insert_delete_dup でそのデータをリスト中に検索する.
+
+(3) (1)と同じ乱数を n 個発生させ, それを list_insert で順次リストに挿入する.
+
+(4) (1)と同じ乱数を n 個発生させ, list_insert_delete_dup2 でそのデータをリスト中に検索する.
+
+実行結果は、以下のとおりである。
+gatahayato@Gatas-MacBook-Pro O6 % gcc -Wall list.c list6time.c
+gatahayato@Gatas-MacBook-Pro O6 % ./a.out
+乱数を何個生成しますか?:100000
+一つ目の乱数の検索 = 0.000112031 [sec]
+二つ目の乱数の検索 = 5.59431e-05 [sec]
+
+dup2はdupと比べて動作が少ないため、実行時間が短くなっていると考えられる。
+具体的には、dup関数は、与えられた値を持つノードを検索し（list_find を使用）、そのノードが存在しない場合は新しいノードを挿入し、存在する場合はそのノードを削除という
+二つのステップに分かれているのに対し、dup2は、一回の捜査で全ての動作を行なっているため、時間が短くなっていると考えられる。
+
+----------------------------------------
+[課題6.2]
+list_insert_uniq と同様にリストには存在しない値のみリストに挿入するが, リスト中で節点が値の昇順に並ぶように新しい節点を挿入する関数 
+list_node_t* list_sorted_insert_uniq(list_node_t *head_p, int val) を作成した.
+
+ここでは, (list_sorted_insert_uniq の中で) まず list_find を呼び出して同じ値を持つ節点があるかどうかを判定し, なければ節点の挿入を行うようにせよ.
+
+下記の list7test.c とリンクして動作確認した。
+
+実行結果は以下の通りである
+gatahayato@Gatas-MacBook-Pro O6 % gcc -Wall list.c list7test.c
+gatahayato@Gatas-MacBook-Pro O6 % ./a.out                     
+input = 2
+[ 2 ]
+input = 1
+[ 1 2 ]
+input = 4
+[ 1 2 4 ]
+input = 3
+[ 1 2 3 4 ]
+input = 
+
+値を昇順に並べ替える関数を作成した。
+基本的には問題の条件通り、list_findを呼び出して同じ値があるかどうかを判定し、
+同じ値がなければ接点の挿入を行う様にした。
+
+----------------------------------------
+[課題6.3]
+オプション課題 (6-7) の list_sorted_insert_uniq を改良し, list_find を呼び出び出さないで, リストを一度走査するだけで list_sorted_insert_uniq と同じ動作を実現する関数 list_sorted_insert_uniq2 を作成せよ.
+
+list7test.c の list_sorted_insert_uniq を list_sorted_insert_uniq2 に変えた list8test.c とリンクして動作を確認せよ.
+
+さらに, list_find を改良し, リストがソートされていることを利用して, データがなかった場合にはデータがないと判断された時点でリストの走査を打ち切る関数 list_sorted_find を作成せよ.
+
+次に, (6-4) で作成した list4time.c の, list_insert_uniq を list_sorted_insert_uniq2 に, list_find を list_sorted_find にそれぞれ変えたプログラム list8time.c を作成し, list4time.c と list8time.c の実行時間の違いを計測せよ. なぜそのような結果になるか, 考察をレポートに記した.
+
+実行結果は、以下のとおりである。
+gatahayato@Gatas-MacBook-Pro O6 % gcc -Wall list.c list8test.c
+gatahayato@Gatas-MacBook-Pro O6 % ./a.out
+input = 1
+[ 1 ]
+input = 2
+[ 1 2 ]
+input = 4
+[ 1 2 4 ]
+input = 3
+[ 1 2 3 4 ]
+input = %   
+
+gatahayato@Gatas-MacBook-Pro O6 % ./a.out
+乱数を何個生成しますか?:10000
+一つ目の乱数の挿入 = 6.4072e-06 [sec]
+(1)と同じ乱数の検索 = 1.08173e-05 [sec]
+新しい乱数の検索 = 2.15834e-05 [sec]
+
+4に比べ、8は時間は短くなっていると観測できる。
+なぜならそれぞれの関数のロジックを改良し、関数の実行時間が短縮されているため
+改良前に比べ今回のものは実行時間が短くなっていると考えられる。
+
+----------------------------------------
+[課題6.4]
+tree.c 中の関数 tree_find を完成させ, 下記の tree10test.c とリンクして動作確認した.
+
+tree_node_t* tree_find(tree_node_t *root, int val) は, *root を根とする二分木中に値 val を持つ節点を探し, 見つかればその節点のポインタを, なければ NULL を返す関数である.
+
+tree10test.c の動作は　list2test.c と同様である
+
+実行結果は以下のとおりである。
+atahayato@Gatas-MacBook-Pro O6 % gcc -Wall tree.c tree10test.c
+gatahayato@Gatas-MacBook-Pro O6 % ./a.out
+input = 3
+[ 3 ]
+input = 5
+[ 3 5 ]
+input = 4
+[ 3 4 5 ]
+input = 4
+[ 3 4 5 ]
+input = 
+
+課題(6-2)と同様の動作をする関数を作成することができた。
+基本的には、二分法の様に入力された値と現在のノードの代償関係から探索する様にした。
+あまり難しくなかったが、実行する時に入力を何度か間違え、エラーを出してしまった。
+
+----------------------------------------
+[課題6.5]
+課題 (6-4) と同じ処理を行うプログラム tree11time.c を作成せよ. いろいろな n (例えば n=5000, 10000, 15000, 20000, 25000, … 等) 
+に対して計測を行い,データ１個あたりに必要な平均計算時間が n の増加に対してどのような割合で増加するか調べ, その理由について考察せよ.
+
+実行結果は以下のとおりである。
+gatahayato@Gatas-MacBook-Pro O6 % gcc -Wall tree.c list4time.c
+gatahayato@Gatas-MacBook-Pro O6 % ./a.out
+乱数を何個生成しますか?: 50000
+実行時間 = 2.491e-07 [sec]
+gatahayato@Gatas-MacBook-Pro O6 % ./a.out
+乱数を何個生成しますか?: 100000
+実行時間 = 2.1409e-07 [sec]
+gatahayato@Gatas-MacBook-Pro O6 % ./a.out
+乱数を何個生成しますか?: 200000
+実行時間 = 1.7577e-07 [sec]
+
+課題(6-4)と同じ処理を行うコードを作成した。
+データ一個あたりの必要な平均計算時間はnの増加に応じて、O(logn)で増加していると考えられる。
+なぜなら、木の高さがlognに比例するからである。
+
+----------------------------------------
+[課題 O6 の感想]
+今回の課題では、リスト処理について復習した。課題数が多かったため、かなり時間がかかってしまったが、
+れぞれのリストの特徴をうまく掴みながら進めることで、効率的に開発をすることができた。
+データ構造とアルゴリズムの授業でも勉強したことを活かし、リストの理解を深めていきたい。

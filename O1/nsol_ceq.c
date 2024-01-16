@@ -20,7 +20,7 @@ int main(void)
             printf("実数解は3個\n");
         }
 
-        if (D < 0)
+        else if (D < 0)
         {
             printf("実数解は1個\n");
         }
